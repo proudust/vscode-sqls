@@ -9,7 +9,7 @@ import {
     LanguageClient,
     LanguageClientOptions,
     ServerOptions,
-} from 'vscode-languageclient';
+} from 'vscode-languageclient/node';
 
 import vscode = require('vscode');
 

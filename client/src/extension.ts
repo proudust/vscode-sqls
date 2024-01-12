@@ -3,43 +3,41 @@
  * Licensed under the MIT License. See License.txt in the project root for license information.
  * ------------------------------------------------------------------------------------------ */
 
+import * as vscode from 'vscode';
 import { ExtensionContext } from 'vscode';
-
 import {
-    LanguageClient,
-    LanguageClientOptions,
-    ServerOptions,
+	LanguageClient,
+	LanguageClientOptions,
+	ServerOptions,
 } from 'vscode-languageclient/node';
-
-import vscode = require('vscode');
 
 let client: LanguageClient;
 
 export function activate(context: ExtensionContext) {
 	const config = parseLanguageServerConfig();
-    let serverOptions: ServerOptions = {
-        command: "sqls",
+	let serverOptions: ServerOptions = {
+		command: 'sqls',
 
-        args: [...config.flags],
-    };
+		args: [...config.flags],
+	};
 
-    let clientOptions: LanguageClientOptions = {
-        documentSelector: [{ scheme: 'file', language: 'sql', pattern: '**/*.sql' }],
-    };
+	let clientOptions: LanguageClientOptions = {
+		documentSelector: [{ scheme: 'file', language: 'sql', pattern: '**/*.sql' }],
+	};
 
-    client = new LanguageClient(
-        'languageServerExample',
-        serverOptions,
-        clientOptions,
-    );
-    client.start();
+	client = new LanguageClient(
+		'languageServerExample',
+		serverOptions,
+		clientOptions,
+	);
+	client.start();
 }
 
 export function deactivate(): Thenable<void> | undefined {
-    if (!client) {
-        return undefined;
-    }
-    return client.stop();
+	if (!client) {
+		return undefined;
+	}
+	return client.stop();
 }
 
 interface LanguageServerConfig {
